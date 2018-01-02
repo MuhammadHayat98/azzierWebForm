@@ -1,3 +1,28 @@
+<?php
+include 'php/config.php';
+session_start();
+
+if(isset($_POST['submit'])) {
+$username = $_POST['username'];
+$pass = $_POST['password'];
+$ldaprdn = "uid=" . $username . ",ou=People, ou=Auth, o=CSUN";
+$result = ldap_search($ldap, $ldaprdn, "");
+if($result) {
+    $_SESSION["username"] = $username;
+}
+if($ldap) {
+    $ldapbind = ldap_bind($ldap, $ldaprdn, $pass);
+        if($ldapbind && $_SESSION["username"] == $username) {
+            header("Location: php/works.php");
+        }
+        else {
+            echo "invalid";
+        }
+  
+    }
+
+}
+?>
 <html>
 
 <head>
@@ -14,7 +39,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <!-- Site Properties -->
-    <title>Bootstrap 4 Login Form</title>
+    <title>Azzier</title>
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
@@ -22,7 +47,7 @@
 
 <body>
     <div class="container">
-        <form class="form-horizontal" role="form" method="POST" action="/login">
+        <form class="form-horizontal" role="form" method="POST" action="index.php">
             <div class="row">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
@@ -66,7 +91,7 @@
             <div class="row" style="padding-top: 1rem">
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <button type="submit" class="btn btn-success">
+                    <button type="submit" class="btn btn-success" id="submit" name="submit">
                         <i class="fa fa-sign-in"></i> Login</button>
                     <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
                 </div>
