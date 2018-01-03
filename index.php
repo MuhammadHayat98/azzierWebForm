@@ -16,7 +16,7 @@ if($ldap) {
             header("Location: php/works.php");
         }
         else {
-            echo "invalid";
+            $message = '<label>Incorrect username or password</label>';
         }
   
     }
@@ -94,6 +94,11 @@ if($ldap) {
                     <button type="submit" class="btn btn-success" id="submit" name="submit">
                         <i class="fa fa-sign-in"></i> Login</button>
                     <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
+                    <?php
+                        if (isset($message)) {
+                             echo '<label class="text-danger">'.$message.'</label>';
+                        }
+                    ?>
                 </div>
             </div>
         </form>
