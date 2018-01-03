@@ -1,7 +1,7 @@
 <?php
 include 'php/config.php';
 session_start();
-
+$_SESSION['auth'] = 0;
 if(isset($_POST['submit'])) {
 $username = $_POST['username'];
 $pass = $_POST['password'];
@@ -13,6 +13,7 @@ if($result) {
 if($ldap) {
     $ldapbind = ldap_bind($ldap, $ldaprdn, $pass);
         if($ldapbind && $_SESSION["username"] == $username) {
+            $_SESSION['auth'] = 1;
             header("Location: php/works.php");
         }
         else {
