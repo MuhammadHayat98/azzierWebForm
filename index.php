@@ -13,7 +13,7 @@ if($result) {
 if($ldap) {
     $ldapbind = ldap_bind($ldap, $ldaprdn, $pass);
         if($ldapbind && $_SESSION["username"] == $username) {
-            header("Location: php/works.php");
+            header("Location: form");
         }
         else {
             $message = '<label>Incorrect username or password</label>';
