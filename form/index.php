@@ -66,7 +66,7 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] != 1) {
         </div>
 
         <div class="row">
-            <form action="POST">
+            <form action="/php/submit.php" method="post">
                     <hr>
                 <div class="form-row">
                     <div class="form-group col">
