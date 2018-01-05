@@ -2,17 +2,20 @@
 
 class XMLHandler 
 {
-    public $xml;
-    public $postArray;
-    function __contruct()  {
-        $this->postArray = 5;
-        $this->xml = 4;
-    }
-    public function getXML() {
-        $this->array_to_xml($this->postArray, $this->xml);
-        return $this->xml->asXML();
+    private $xml;
+    private $postArray;
+
+    public function __construct($array)  {
+       $this->postArray = $array;
+       $this->xml = new SimpleXMLElement('<?xml version="1.0"?><root></root>');
     }
 
+    public function getXML() {
+        $this->array_to_xml($this->postArray, $this->xml);
+       $this->xml = $this->xml->asXML();
+    }
+
+    
    private function array_to_xml( $data, $xml_data ) {
         foreach( $data as $key => $value ) {
             if( is_numeric($key) ){
@@ -20,7 +23,7 @@ class XMLHandler
             }
             if( is_array($value) ) {
                 $subnode = $xml_data->addChild($key);
-                array_to_xml($value, $subnode);
+                $this->array_to_xml($value, $subnode);
             } else {
                 $xml_data->addChild("$key",htmlspecialchars("$value"));
             }
@@ -29,20 +32,6 @@ class XMLHandler
 
     
 
-
 }
-$array = array(
-    'WOLabour' => array(
-        'Comments' => 'test',
-        'Hours' => '23',
-        'LaborType' => 'reg',
-        'WoNum' => '2343',
-        'EmpId' => 'user',
-        'Craft' => 'mis'
-    )
-    );
-$xmlHandler = new XMLHandler();
-$t  = $xmlHandler->postArray;
-var_dump($t);
 
 ?>

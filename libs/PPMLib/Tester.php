@@ -1,6 +1,6 @@
 <?php
-include 'XMLHandler.php';
-$array = array(
+require 'XMLHandler.php';
+/*$array = array(
     'WOLabour' => array(
         'Comments' => 'test',
         'Hours' => '23',
@@ -11,7 +11,9 @@ $array = array(
     )
     );
 $xmlHandler = new XMLHandler($array);
+
 $t  = $xmlHandler->getXML();
-print($t);
-//$result = $xmlHandler->getXML();
-//print($result);
+var_dump($xmlHandler);
+*/
+phpinfo();
+?>
