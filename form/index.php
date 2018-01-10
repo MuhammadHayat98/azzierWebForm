@@ -1,10 +1,14 @@
 <?php
 session_start();
-if (!isset($_SESSION['auth']) || $_SESSION['auth'] != 1) {
-    header('Location: ../index.php');
+echo session_id();
+print_r($_SESSION);
+echo isset($_SESSION['auth']);
+if ($_SESSION['auth'] !== 1 ) {
+    echo 'entered session auth'; 
+    //header('Location: ../index.php');
     exit();
 }
-
+require "../libs/PPMLib/XMLHandler.php";
 if (isset($_POST['submit'])) {
     session_start();
     $_SESSION['auth'] = 1;
@@ -24,11 +28,11 @@ if (isset($_POST['submit'])) {
             'Craft' => ''
         )
     );
-//$xmlHandler = new XMLHandler($array);
+$xmlHandler = new XMLHandler($array);
     print_r($array);
-//$result = $xmlHandler->getXML();
+$result = $xmlHandler->getXML();
 
-/*
+
 //send xml file to azzier
 $client = new http\Client;
 $request = new http\Client\Request;
@@ -50,7 +54,7 @@ $client->enqueue($request)->send();
 $response = $client->getResponse();
 echo $response->getBody();
 
-     */
+     
 
 } else {
     $message = '<label>Please enter your time tracking information</label>';
@@ -116,7 +120,7 @@ echo $response->getBody();
         </div>
 
         <div class="row">
-            <form action="../php/submit.php" method="POST">
+            <form  method="POST">
                     <hr>
                 <div class="form-row">
                     <div class="form-group col">

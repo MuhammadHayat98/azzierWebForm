@@ -1,6 +1,8 @@
 <?php
 include 'php/config.php';
 session_start();
+echo session_id();
+print_r($_SESSION);
 $_SESSION['auth'] = 0;
 if(isset($_POST['submit'])) {
 $username = $_POST['username'];
