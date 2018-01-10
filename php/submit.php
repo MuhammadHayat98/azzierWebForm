@@ -22,7 +22,7 @@ $array = array(
 //$xmlHandler = new XMLHandler($array);
 print_r ($array);
 //$result = $xmlHandler->getXML();
-
+header("Location: ../");
 /*
 //send xml file to azzier
 $client = new http\Client;
