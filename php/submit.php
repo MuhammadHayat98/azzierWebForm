@@ -1,10 +1,11 @@
 <?php
+session_start();
 /*
 * HTML Purifier goes here
 */
 
 $wo = $_POST['WO'];
-$hours = $_POST['Hours'];
+$hours = $_POST['hours'];
 $timeType = $_POST['type'];
 $comment = $_POST['comments'];
 
@@ -18,10 +19,11 @@ $array = array(
         'Craft' => ''
     )
     );
-$xmlHandler = new XMLHandler($array);
-echo $array;
-$result = $xmlHandler->getXML();
+//$xmlHandler = new XMLHandler($array);
+print_r ($array);
+//$result = $xmlHandler->getXML();
 
+/*
 //send xml file to azzier
 $client = new http\Client;
 $request = new http\Client\Request;
@@ -42,3 +44,6 @@ $request->setHeaders(array(
 $client->enqueue($request)->send();
 $response = $client->getResponse();
 echo $response->getBody();
+
+*/
+?>
