@@ -82,10 +82,6 @@ if($ldap) {
                 <div class="col-md-3"></div>
                 <div class="col-md-6" style="padding-top: .35rem">
                     <div class="form-check mb-2 mr-sm-2 mb-sm-0">
-                        <label class="form-check-label">
-                            <input class="form-check-input" name="remember" type="checkbox">
-                            <span style="padding-bottom: .15rem">Remember me</span>
-                        </label>
                     </div>
                 </div>
             </div>
@@ -94,7 +90,7 @@ if($ldap) {
                 <div class="col-md-6">
                     <button type="submit" class="btn btn-success" id="submit" name="submit">
                         <i class="fa fa-sign-in"></i> Login</button>
-                    <a class="btn btn-link" href="/password/reset">Forgot Your Password?</a>
+                    <a class="btn btn-link" href="https://mynorthridge.csun.edu/psc/PANRPRD/EMPLOYEE/EMPL/s/WEBLIB_NRPA_PWD.ISCRIPT1.FieldFormula.IScript_ChangePasswordt">Forgot Your Password?</a>
                     <?php
                         if (isset($message)) {
                              echo '<label class="text-danger">'.$message.'</label>';

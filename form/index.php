@@ -1,33 +1,31 @@
 <?php
 session_start();
-if(!isset($_SESSION['auth']) || $_SESSION['auth'] != 1) {
+if (!isset($_SESSION['auth']) || $_SESSION['auth'] != 1) {
     header('Location: ../index.php');
     exit();
 }
 
-if (isset($_POST['submit'])){
+if (isset($_POST['submit'])) {
     session_start();
-/*
-* HTML Purifier goes here
-*/
+    $_SESSION['auth'] = 1;
 
-$wo = $_POST['WO'];
-$hours = $_POST['hours'];
-$timeType = $_POST['type'];
-$comment = $_POST['comments'];
+    $wo = $_POST['WO'];
+    $hours = $_POST['hours'];
+    $timeType = $_POST['type'];
+    $comment = $_POST['comments'];
 
-$array = array(
-    'WOLabour' => array(
-        'Comments' => $comment,
-        'Hours' => $hours,
-        'LaborType' => $timeType,
-        'WoNum' => $wo,
-        'EmpId' => $_SESSION['username'],
-        'Craft' => ''
-    )
+    $array = array(
+        'WOLabour' => array(
+            'Comments' => $comment,
+            'Hours' => $hours,
+            'LaborType' => $timeType,
+            'WoNum' => $wo,
+            'EmpId' => $_SESSION['username'],
+            'Craft' => ''
+        )
     );
 //$xmlHandler = new XMLHandler($array);
-print_r ($array);
+    print_r($array);
 //$result = $xmlHandler->getXML();
 
 /*
@@ -52,10 +50,10 @@ $client->enqueue($request)->send();
 $response = $client->getResponse();
 echo $response->getBody();
 
-*/
+     */
 
-} else{
-    echo "Currently not submitted";
+} else {
+    $message = '<label>Please enter your time tracking information</label>';
 }
 
 ?>
@@ -144,6 +142,11 @@ echo $response->getBody();
                 -->
                 <hr>
                 <button class="btn btn-outline-success" type="submit" id="submit" name="submit" valu>Submit</button>
+                <?php
+                if (isset($message)) {
+                    echo '<label class="text-danger">' . $message . '</label>';
+                }
+                ?>
             </form>
         </div>
     </div>
