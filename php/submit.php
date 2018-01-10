@@ -19,3 +19,26 @@ $array = array(
     )
     );
 $xmlHandler = new XMLHandler($array);
+echo $array;
+$result = $xmlHandler->getXML();
+
+//send xml file to azzier
+$client = new http\Client;
+$request = new http\Client\Request;
+$body = new http\Message\Body;
+$body->addForm(array(
+  'xml' => $result,
+  'interfacename' => 'WOTIMEENTRY'
+), NULL);
+$request->setRequestUrl('https://csun.azzier.com/api/interface');
+$request->setRequestMethod('POST');
+$request->setBody($body);
+$request->setHeaders(array(
+  'postman-token' => '9ec9d460-61ca-cfb1-8625-3d84d7a82890',
+  'cache-control' => 'no-cache',
+  'password' => 'monday9*9',
+  'username' => 'interface_rw'
+));
+$client->enqueue($request)->send();
+$response = $client->getResponse();
+echo $response->getBody();

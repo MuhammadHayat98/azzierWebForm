@@ -5,7 +5,6 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] != 1) {
     exit();
 }
 
-
 ?>
 <!doctype html>
 <html lang="en">
@@ -66,7 +65,7 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] != 1) {
         </div>
 
         <div class="row">
-            <form action="/php/submit.php" method="post">
+            <form action="../php/submit.php" method="POST">
                     <hr>
                 <div class="form-row">
                     <div class="form-group col">
@@ -86,10 +85,12 @@ if(!isset($_SESSION['auth']) || $_SESSION['auth'] != 1) {
                         <input type="text" class="form-control" name="comments" id="comments" required>
                     </div>
                 </div>
+                <!-- Add function after POST works
                 <button class="btn btn-outline-primary" type="button">Add</button>
                 <button class="btn btn-outline-danger" type="button">Remove</button>
+                -->
                 <hr>
-                <button class="btn btn-outline-success" type="button" id="submit" name="submit">Submit</button>
+                <button class="btn btn-outline-success" type="submit" id="submit" name="submit" valu>Submit</button>
             </form>
         </div>
     </div>
