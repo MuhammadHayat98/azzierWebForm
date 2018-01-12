@@ -20,7 +20,7 @@ if($ldap) {
         }
         else {
             $message = '<label>Incorrect username or password</label>';
-            //t
+            
         }
   
     }

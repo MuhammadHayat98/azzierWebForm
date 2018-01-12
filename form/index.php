@@ -6,6 +6,7 @@ if ($_SESSION['auth'] != 1 || !isset($_SESSION['auth'])) {
     exit();
 }
 require "../libs/PPMLib/XMLHandler.php";
+require "../libs/PPMLib/azzierCom.php";
 if (isset($_POST['submit'])) {
     session_start();
     $_SESSION['auth'] = 1;
@@ -22,13 +23,13 @@ if (isset($_POST['submit'])) {
             'LaborType' => $timeType,
             'WoNum' => $wo,
             'EmpId' => $_SESSION['username'],
-            'Craft' => ''
+            'Craft' => 'MIS'
         )
     );
 $xmlHandler = new XMLHandler($array);
 $result = $xmlHandler->getXML();
 
-
+/*
 //send xml file to azzier
 $client = new http\Client;
 $request = new http\Client\Request;
@@ -49,8 +50,10 @@ $request->setHeaders(array(
 $client->enqueue($request)->send();
 $response = $client->getResponse();
 echo $response->getBody();
-
-     
+*/
+$coms = new azzierCom('interface_rw', 'monday9*9');
+$res = $coms->sendPost($result, 'WOTIMEENTRY');
+echo $res;
 
 } else {
     $message = '<label>Please enter your time tracking information</label>';
