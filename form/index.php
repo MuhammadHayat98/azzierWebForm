@@ -132,7 +132,12 @@ echo $res;
                     </div>
                     <div class="form-group col">
                         <label for="clientTitle">Time Type</label>
-                        <input type="text" class="form-control" name="type" id="type" required>
+                        <select class="custom-select" required>
+  <option selected>Open this select menu</option>
+  <option value="1">One</option>
+  <option value="2">Two</option>
+  <option value="3">Three</option>
+</select>
                     </div>
                     <div class="form-group col">
                         <label for="clientTitle">Comments</label>
