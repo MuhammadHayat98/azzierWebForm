@@ -8,12 +8,12 @@ class azzierCom
     private $request = new http\Client\Request;
     private $body = new http\Message\Body;
 
-    public __construct($username, $pass) {
+    public function __construct($username, $pass) {
         $this->username = $username;
         $this->password = $pass;
     }
 
-    public sendPost($xml, $interfaceName) {
+    public function sendPost($xml, $interfaceName) {
         $this->body->$body->addForm(array(
             'xml' => $xml,
             'interfacename' => $interfaceName
