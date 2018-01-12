@@ -22,7 +22,7 @@ if (isset($_POST['submit'])) {
             'Hours' => $hours,
             'LaborType' => $timeType,
             'WoNum' => $wo,
-            'EmpId' => $_SESSION['username'],
+            'EmpID' => $_SESSION['username'],
             'Craft' => 'MIS'
         )
     );

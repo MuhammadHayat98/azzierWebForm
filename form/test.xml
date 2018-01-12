@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<root><WOLabour><Comments>d</Comments><Hours>d</Hours><LaborType/><WoNum>d</WoNum><EmpId>mah51212</EmpId><Craft>MIS</Craft></WOLabour></root>
+<root><WOLabour><Comments>test</Comments><Hours>2</Hours><LaborType>REG</LaborType><WoNum>000014</WoNum><EmpID>mah51212</EmpID><Craft>MIS</Craft></WOLabour></root>
