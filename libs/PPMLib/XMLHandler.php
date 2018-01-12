@@ -30,6 +30,13 @@ class XMLHandler
             }
         }
     }
+    /*
+    * this is meant for testing purposes to see if a
+    * xml string is formatted correctly
+    */
+    public function toXmlFile() {
+        return $this->xml->asXML('test.xml');
+    }
 
     
 

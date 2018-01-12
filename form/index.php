@@ -28,6 +28,7 @@ if (isset($_POST['submit'])) {
     );
 $xmlHandler = new XMLHandler($array);
 $result = $xmlHandler->getXML();
+$xmlHandler->toXmlFile();
 
 /*
 //send xml file to azzier
@@ -132,11 +133,12 @@ echo $res;
                     </div>
                     <div class="form-group col">
                         <label for="clientTitle">Time Type</label>
-                        <select class="custom-select" required>
-  <option selected>Open this select menu</option>
-  <option value="1">One</option>
-  <option value="2">Two</option>
-  <option value="3">Three</option>
+                        <select name="type" id="type" class="form-control" required>
+  <option value="REG">REG</option>
+  <option value=""></option>
+  <option value=""></option>
+  <option value=""></option>
+  <option value=""></option>
 </select>
                     </div>
                     <div class="form-group col">
