@@ -1,11 +1,8 @@
 <?php
 session_start();
-echo session_id();
-print_r($_SESSION);
-echo isset($_SESSION['auth']);
-if ($_SESSION['auth'] !== 1 ) {
-    echo 'entered session auth'; 
-    //header('Location: ../index.php');
+
+if ($_SESSION['auth'] != 1 || !isset($_SESSION['auth'])) {
+    header('Location: ../index.php');
     exit();
 }
 require "../libs/PPMLib/XMLHandler.php";
@@ -29,7 +26,6 @@ if (isset($_POST['submit'])) {
         )
     );
 $xmlHandler = new XMLHandler($array);
-    print_r($array);
 $result = $xmlHandler->getXML();
 
 
@@ -41,7 +37,7 @@ $body->addForm(array(
   'xml' => $result,
   'interfacename' => 'WOTIMEENTRY'
 ), NULL);
-$request->setRequestUrl('https://csun.azzier.com/api/interface');
+$request->setRequestUrl('https://csuntest.azzier.com/api/interface');
 $request->setRequestMethod('POST');
 $request->setBody($body);
 $request->setHeaders(array(

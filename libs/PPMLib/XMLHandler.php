@@ -12,7 +12,8 @@ class XMLHandler
 
     public function getXML() {
         $this->array_to_xml($this->postArray, $this->xml);
-       $this->xml = $this->xml->asXML();
+       
+       return $this->xml->asXML();
     }
 
     
