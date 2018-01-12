@@ -17,7 +17,7 @@ class azzierCom
     }
 
     public function sendPost($xml, $interfaceName) {
-        $this->body->$body->addForm(array(
+        $this->body->addForm(array(
             'xml' => $xml,
             'interfacename' => $interfaceName
           ), NULL);
