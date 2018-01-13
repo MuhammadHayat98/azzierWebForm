@@ -7,15 +7,31 @@ if ($_SESSION['auth'] != 1 || !isset($_SESSION['auth'])) {
 }
 require "../libs/PPMLib/XMLHandler.php";
 require "../libs/PPMLib/azzierCom.php";
+$coms = new azzierCom('interface_rw', 'monday9*9');
+$scaleData = $coms->getData('LabourTypes^Description^', 'GETLABORTYPES');
+    $arrayScale = json_decode(json_encode($scaleData), True); 
+    $arrayScale = $arrayScale['LaborTypes']['LaborType'];
+
+    $htmlout = " ";
+foreach ($arrayScale as $key => $value)
+{
+    $htmlout .= "<option value=$key>" . $value['Type'] . "</option>";
+}
 if (isset($_POST['submit'])) {
     session_start();
     $_SESSION['auth'] = 1;
+    
+    $data = $coms->getData('Employee^EmpID^=^ '. $_SESSION['username'], 'GETLABORINFO');
+    echo var_dump($data);
 
+    //$craft = $data->Employees->Employee->Craft;
+    //$rate = $data->Employees->Employee->Rate;
     $wo = $_POST['WO'];
     $hours = $_POST['hours'];
     $timeType = $_POST['type'];
     $comment = $_POST['comments'];
-
+    $scale = $arrayScale[$_POST['type']]['Scale'];
+    $cost = $hours * '$rate *' $scale;
     $array = array(
         'WOLabour' => array(
             'Comments' => $comment,
@@ -23,38 +39,19 @@ if (isset($_POST['submit'])) {
             'LaborType' => $timeType,
             'WoNum' => $wo,
             'EmpID' => $_SESSION['username'],
-            'Craft' => 'MIS'
+            'Craft' => '$craft',
+            'Scale' => $scale,
+            'TotalCost' => '$cost'
         )
     );
 $xmlHandler = new XMLHandler($array);
 $result = $xmlHandler->getXML();
 $xmlHandler->toXmlFile();
 
-/*
-//send xml file to azzier
-$client = new http\Client;
-$request = new http\Client\Request;
-$body = new http\Message\Body;
-$body->addForm(array(
-  'xml' => $result,
-  'interfacename' => 'WOTIMEENTRY'
-), NULL);
-$request->setRequestUrl('https://csuntest.azzier.com/api/interface');
-$request->setRequestMethod('POST');
-$request->setBody($body);
-$request->setHeaders(array(
-  'postman-token' => '9ec9d460-61ca-cfb1-8625-3d84d7a82890',
-  'cache-control' => 'no-cache',
-  'password' => 'monday9*9',
-  'username' => 'interface_rw'
-));
-$client->enqueue($request)->send();
-$response = $client->getResponse();
-echo $response->getBody();
-*/
-$coms = new azzierCom('interface_rw', 'monday9*9');
+
+
 $res = $coms->sendPost($result, 'WOTIMEENTRY');
-echo $res;
+//echo $res;
 
 } else {
     $message = '<label>Please enter your time tracking information</label>';
@@ -134,12 +131,8 @@ echo $res;
                     <div class="form-group col">
                         <label for="clientTitle">Time Type</label>
                         <select name="type" id="type" class="form-control" required>
-  <option value="REG">REG</option>
-  <option value=""></option>
-  <option value=""></option>
-  <option value=""></option>
-  <option value=""></option>
-</select>
+                        <?php echo $htmlout; ?>
+                        </select>
                     </div>
                     <div class="form-group col">
                         <label for="clientTitle">Comments</label>

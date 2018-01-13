@@ -6,11 +6,14 @@ class azzierCom
     private $password;
     private $client;
     private $request;
+    private $url;
+    //body is only used for post 
     private $body;
 
     public function __construct($username, $pass) {
         $this->username = $username;
         $this->password = $pass;
+        //$this->url = $url;
         $this->client = new http\Client;
         $this->request = new http\Client\Request; 
         $this->body = new http\Message\Body; 
@@ -34,11 +37,44 @@ class azzierCom
 
           $this->client->enqueue($this->request)->send();
           $response = $this->client->getResponse();
+          
+          //Reset the http client.
+          $this->client->reset();
+          
           return $response->getBody();
+
 
     }
 
+    public function getData($runtimefilter, $interfaceName) {
+        $this->request->setRequestUrl('https://csuntest.azzier.com/api/interface/');
+        $this->request->setRequestMethod('GET');
+        $this->request->setQuery(new http\QueryString(array(
+            'interfacename' => $interfaceName,
+            'runtimefilter' => $runtimefilter
+          )));
+        $this->request->setHeaders(array(
+            'Postman-Token' => 'acb5734f-9887-8920-809f-b0a381d8ac85',
+            'Cache-Control' => 'no-cache',
+            'password' => $this->password,
+            'username' => $this->username
+          ));
+        $this->client->enqueue($this->request)->send();
+        $response = $this->client->getResponse();
+        $xml_get = simplexml_load_string($response->getBody());
+        $json = json_encode($xml_get);
+        $obj = json_decode($json);
+        //reset obj states
+       // $this->resetStates();
+       $this->client->reset();
+        return $obj;
 
+    }
+
+    private function resetStates() {
+        $this->client = new http\Client;
+        $this->request = new http\Client\Request;
+    }
 
 }
 
