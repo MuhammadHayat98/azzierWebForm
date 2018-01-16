@@ -2,6 +2,7 @@
 
 class azzierCom 
 {
+    //Creates a communication object to send and recieve data to/from Azzier's interface
     private $username;
     private $password;
     private $client;
@@ -70,12 +71,6 @@ class azzierCom
         return $obj;
 
     }
-
-    private function resetStates() {
-        $this->client = new http\Client;
-        $this->request = new http\Client\Request;
-    }
-
 }
 
 ?>

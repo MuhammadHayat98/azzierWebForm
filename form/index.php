@@ -20,18 +20,16 @@ foreach ($arrayScale as $key => $value)
 if (isset($_POST['submit'])) {
     session_start();
     $_SESSION['auth'] = 1;
+    $data = $coms->getData('Employee^EmpID^=^' . $_SESSION['username'], 'GETLABORINFO');
     
-    $data = $coms->getData('Employee^EmpID^=^ '. $_SESSION['username'], 'GETLABORINFO');
-    echo var_dump($data);
-
+    $rate = $data->Employees->Employee->Rate;
     //$craft = $data->Employees->Employee->Craft;
-    //$rate = $data->Employees->Employee->Rate;
     $wo = $_POST['WO'];
     $hours = $_POST['hours'];
-    $timeType = $_POST['type'];
+    $timeType = $arrayScale[$_POST['type']]['Type'];
     $comment = $_POST['comments'];
     $scale = $arrayScale[$_POST['type']]['Scale'];
-    $cost = $hours * '$rate *' $scale;
+    $cost = $hours * $rate;
     $array = array(
         'WOLabour' => array(
             'Comments' => $comment,
@@ -41,7 +39,7 @@ if (isset($_POST['submit'])) {
             'EmpID' => $_SESSION['username'],
             'Craft' => '$craft',
             'Scale' => $scale,
-            'TotalCost' => '$cost'
+            'TotalCost' => $cost
         )
     );
 $xmlHandler = new XMLHandler($array);

@@ -1,2 +1,2 @@
 <?xml version="1.0"?>
-<root><WOLabour><Comments>test</Comments><Hours>2</Hours><LaborType>0</LaborType><WoNum>000014</WoNum><EmpID>ajg31213</EmpID><Craft>$craft</Craft><Scale>1.0000</Scale><TotalCost>$cost</TotalCost></WOLabour></root>
+<root><WOLabour><Comments>t</Comments><Hours>2</Hours><LaborType>REG</LaborType><WoNum>000014</WoNum><EmpID>mah51212</EmpID><Craft>$craft</Craft><Scale>1.0000</Scale><TotalCost>0</TotalCost></WOLabour></root>
