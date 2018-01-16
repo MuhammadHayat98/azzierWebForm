@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
     $data = $coms->getData('Employee^EmpID^=^' . $_SESSION['username'], 'GETLABORINFO');
     
     $rate = $data->Employees->Employee->Rate;
-    //$craft = $data->Employees->Employee->Craft;
+    $craft = $data->Employees->Employee->Craft;
     $wo = $_POST['WO'];
     $hours = $_POST['hours'];
     $timeType = $arrayScale[$_POST['type']]['Type'];
@@ -37,7 +37,7 @@ if (isset($_POST['submit'])) {
             'LaborType' => $timeType,
             'WoNum' => $wo,
             'EmpID' => $_SESSION['username'],
-            'Craft' => '$craft',
+            'Craft' => $craft,
             'Scale' => $scale,
             'TotalCost' => $cost
         )
