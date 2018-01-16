@@ -1,17 +1,30 @@
 <?php
 include 'php/config.php';
 session_start();
+require_once('libs/purifier/library/HTMLPurifier.auto.php');
+date_default_timezone_set('America/Los_Angeles');
+$config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($config);
+if($_POST){
+    
+    //sanitize for html first
+    
+    foreach ($_POST as $key => $value){
+        $clean = $purifier->purify($value);
+        $_POST[$key] = $clean;
+        //echo $clean;
 
-
+    }
 $_SESSION['auth'] = 0;
 if(isset($_POST['submit'])) {
-$username = $_POST['username'];
-$pass = $_POST['password'];
-$ldaprdn = "uid=" . $username . ",ou=People, ou=Auth, o=CSUN";
-$result = ldap_search($ldap, $ldaprdn, "");
+    $username = $_POST['username'];
+    $pass = $_POST['password'];
+    $ldaprdn = "uid=" . $username . ",ou=People, ou=Auth, o=CSUN";
+    $result = ldap_search($ldap, $ldaprdn, "");
 if($result) {
     $_SESSION["username"] = $username;
 }
+
 if($ldap) {
     $ldapbind = ldap_bind($ldap, $ldaprdn, $pass);
         if($ldapbind && $_SESSION["username"] == $username) {
@@ -25,6 +38,7 @@ if($ldap) {
   
     }
 
+}
 }
 ?>
     <!DOCTYPE html>

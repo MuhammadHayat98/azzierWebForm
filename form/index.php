@@ -1,5 +1,10 @@
 <?php
 session_start();
+require_once('../libs/purifier/library/HTMLPurifier.auto.php');
+date_default_timezone_set('America/Los_Angeles');
+$config = HTMLPurifier_Config::createDefault();
+$purifier = new HTMLPurifier($config);
+
 //simple check to make sure only logged in users have access to time form
 if ($_SESSION['auth'] != 1 || !isset($_SESSION['auth'])) {
     header('Location: ../index.php');
@@ -14,9 +19,9 @@ $scaleData = $coms->getData('LabourTypes^Description^', 'GETLABORTYPES');
     $arrayScale = $arrayScale['LaborTypes']['LaborType'];
 
     $htmlout = " ";
-foreach ($arrayScale as $key => $value)
+foreach ($arrayScale as $option => $type)
 {
-    $htmlout .= "<option value=$key>" . $value['Type'] . "</option>";
+    $htmlout .= "<option value=$option>" . $type['Type'] . "</option>";
 }
 if (isset($_POST['submit'])) {
     session_start();
@@ -47,10 +52,7 @@ $xmlHandler = new XMLHandler($array);
 $result = $xmlHandler->getXML();
 $xmlHandler->toXmlFile();
 
-
-
 $res = $coms->sendPost($result, 'WOTIMEENTRY');
-//echo $res;
 
 } else {
     $message = '<label>Please enter your time tracking information</label>';

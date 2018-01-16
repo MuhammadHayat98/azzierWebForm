@@ -6,7 +6,7 @@ $coms = new azzierCom('interface_rw', 'monday9*9');
 //$functions = new azzierFunctions($coms);
 
 $data = $coms->getData('Employee^EmpID^=^mah51212', 'GETLABORINFO');
-//echo var_dump($data);
+echo var_dump($data);
 //$rate = $data->Employees->Employee->Rate;
 //echo $rate;
 //echo $data->Employees->Employee->Craft;
