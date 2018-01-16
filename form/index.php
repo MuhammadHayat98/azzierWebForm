@@ -1,10 +1,11 @@
 <?php
 session_start();
-
+//simple check to make sure only logged in users have access to time form
 if ($_SESSION['auth'] != 1 || !isset($_SESSION['auth'])) {
     header('Location: ../index.php');
     exit();
 }
+//ppm classes that convert arrays to xml and communicate with azzier
 require "../libs/PPMLib/XMLHandler.php";
 require "../libs/PPMLib/azzierCom.php";
 $coms = new azzierCom('interface_rw', 'monday9*9');
@@ -29,7 +30,7 @@ if (isset($_POST['submit'])) {
     $timeType = $arrayScale[$_POST['type']]['Type'];
     $comment = $_POST['comments'];
     $scale = $arrayScale[$_POST['type']]['Scale'];
-    $cost = $hours * $rate;
+    $cost = $hours * $rate * $scale;
     $array = array(
         'WOLabour' => array(
             'Comments' => $comment,
