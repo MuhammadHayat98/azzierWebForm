@@ -6,7 +6,7 @@ $username = $_POST['username'];
 $pass = $_POST['password'];
 
 if(isset($username) && isset($pass)) {
-$ldap = ldap_connect("ldap://ldap.csun.edu") or die("cant connect");
+$ldap = ldap_connect(LDAP) or die("cant connect");
 $ldaprdn = "uid=" . $username . ",ou=People, ou=Auth, o=CSUN";
 $result = ldap_search($ldap, $ldaprdn, "");
 if($result) {
